@@ -1,7 +1,6 @@
-using StudioManagerApi;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using StudioManager.Data;
 using System.Reflection;
-using StudioManagerApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,19 +10,20 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 
-
+// prilagodba za dokumentaciju
 builder.Services.AddSwaggerGen(sgo =>
-{
+{ // sgo je instanca klase SwaggerGenOptions
+  
     var o = new Microsoft.OpenApi.Models.OpenApiInfo()
     {
-        Title = "StudioManagerApi",
+        Title = "Studio Manager",
         Version = "v1",
         Contact = new Microsoft.OpenApi.Models.OpenApiContact()
         {
             Email = "bozic.petra35@gmail.com",
-            Name = "Petra Bozic"
+            Name = "Petra Božić"
         },
-        Description = "Ovo je dokumentacija za StudioManagerApi",
+        Description = "Ovo je dokumentacija za Studio Manager",
         License = new Microsoft.OpenApi.Models.OpenApiLicense()
         {
             Name = "Edukacijska licenca"
@@ -37,7 +37,16 @@ builder.Services.AddSwaggerGen(sgo =>
 
 });
 
-// svi se od svuda na sve mogu?e na?ine mogu spojitina na� API
+//dodajem bazu podataka
+
+builder.Services.AddDbContext<StudioManagerContext>(o =>
+    o.UseSqlServer(builder.Configuration.GetConnectionString(name: "StudioManagerContext"))
+);
+
+
+
+
+// Svi se od svuda na sve moguće načine mogu spojitina naš API
 
 builder.Services.AddCors(opcije =>
 {
@@ -50,9 +59,8 @@ builder.Services.AddCors(opcije =>
 
 
 // dodavanje baze podataka
-
-builder.Services.AddDbContext<StudioManagerApiContext>(o =>
-    o.UseSqlServer(builder.Configuration.GetConnectionString(name: "StudioManagerApiContext"))
+builder.Services.AddDbContext<StudioManagerContext>(o =>
+    o.UseSqlServer(builder.Configuration.GetConnectionString(name: "StudioManagerContext"))
 );
 
 
@@ -63,9 +71,7 @@ var app = builder.Build();
 //if (app.Environment.IsDevelopment())
 //{
 app.UseSwagger();
-
-// mogu?nost generiranja poziva rute u CMD i Powershell
-
+// mogućnost generiranja poziva rute u CMD i Powershell
 app.UseSwaggerUI(opcije =>
 {
     opcije.ConfigObject.
