@@ -13,6 +13,20 @@ go
 
 
 use studio;
+-- Ovo za produkciju treba
+SELECT name, collation_name FROM sys.databases;
+GO
+-- Doma primjeniti na ime svoje baze 3 puta
+ALTER DATABASE db_aa5f48_studio SET SINGLE_USER WITH
+ROLLBACK IMMEDIATE;
+GO
+ALTER DATABASE db_aa5f48_studio COLLATE Croatian_CI_AS;
+GO
+ALTER DATABASE db_aa5f48_studio SET MULTI_USER;
+GO
+SELECT name, collation_name FROM sys.databases;
+GO
+
 
 create table treneri (
 sifra int not null primary key identity (1,1),
@@ -42,11 +56,12 @@ trener int not null
 create table grupe (
 sifra int not null primary key identity (50,1),
 termin varchar (50) not null,
-program int not null,
+planiprogrami int not null,
 datumpocetka datetime,
 maksimalanbrojvjezbaca int not null
 );
 
+drop table grupe;
 create table vjezbacixgrupe (
 vjezbac int not null,
 grupa int not null
@@ -112,7 +127,7 @@ values
 ('Yoga', 4, 40.00, 3)
 ;
 
-insert into grupe (termin, program, maksimalanbrojvjezbaca)
+insert into grupe (termin, planiprogrami, maksimalanbrojvjezbaca)
 values
 ('pon/pet/16:45', 30, 6),
 ('pon/sri/pet/18:00', 31, 6),
@@ -154,5 +169,4 @@ values
 (119, 50),
 (120, 50)
 ;
-
 
