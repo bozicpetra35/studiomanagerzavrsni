@@ -156,6 +156,56 @@ namespace StudioManager.Controllers
         }
 
 
+/// <summary>
+        /// Brisanje programa iz baze
+        /// </summary>
+        /// <remarks>
+        /// <param name="sifra">Šifra programa kojeg želite izbrisati</param>  
+        /// <returns>Potvrđeno brisanje</returns>
+        /// <response code="200">Sve je u redu, program je obrisan s baze</response>
+        /// <response code="204">U bazi ne postoji program kojeg ste odabrali za brisanje</response>
+        /// <response code="503">Problem s bazom</response> 
+
+        [HttpDelete]
+        [Route("{sifra:int}")]
+        [Produces("application/json")]
+
+        public IActionResult Delete(int sifra)
+        {
+            if (!ModelState.IsValid || sifra <= 0)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var planiprogramizBaze = _context.Planiprogrami.Find(sifra);
+
+                if (planiprogramizBaze == null)
+                {
+                    return StatusCode(StatusCodes.Status204NoContent, sifra);
+                }
+
+                _context.Planiprogrami.Remove(planiprogramizBaze);
+                _context.SaveChanges();
+
+                return new JsonResult("{\"poruka\":\"Obrisano\"}"); 
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                    ex.Message);
+            }
+
+        }
+
+
+
+
+
+
+
     }
 }
 
