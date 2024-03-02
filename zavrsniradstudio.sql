@@ -31,7 +31,7 @@ telefon varchar (20),
 brojupisnoglista char (4)
 );
 
-create table programi (
+create table planiprogrami (
 sifra int not null primary key identity (30,1),
 naziv varchar (50) not null,
 tjednasatnica int not null,
@@ -54,13 +54,13 @@ grupa int not null
 
 
 
-alter table grupe add foreign key (program) references programi (sifra);
+alter table grupe add foreign key (planiprogrami) references planiprogrami (sifra);
 
 alter table vjezbacixgrupe add foreign key (vjezbac) references vjezbaci (sifra);
 
 alter table vjezbacixgrupe add foreign key (grupa) references grupe (sifra);
 
-alter table programi add foreign key (trener) references treneri (sifra);
+alter table planiprogrami add foreign key (trener) references treneri (sifra);
 
 
 
@@ -102,7 +102,7 @@ values
 
 
 
-insert into programi (naziv, tjednasatnica, cijena, trener)
+insert into planiprogrami (naziv, tjednasatnica, cijena, trener)
 values
 ('Body&balance', 2, 30.00, 4),
 ('Body&breath', 3, 37.00, 1),

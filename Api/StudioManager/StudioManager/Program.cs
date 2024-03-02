@@ -71,7 +71,9 @@ var app = builder.Build();
 //if (app.Environment.IsDevelopment())
 //{
 app.UseSwagger();
+
 // mogućnost generiranja poziva rute u CMD i Powershell
+
 app.UseSwaggerUI(opcije =>
 {
     opcije.ConfigObject.

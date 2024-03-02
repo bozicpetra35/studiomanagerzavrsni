@@ -11,9 +11,10 @@ namespace StudioManager.Data
     public class StudioManagerContext:DbContext
     {
 /// <summary>
-/// konstruktor
-/// </summary>
-
+        /// konstruktor
+        /// prosljedili smo mu opcije definirane u programu
+        /// </summary>
+        /// 
 
         public StudioManagerContext(DbContextOptions<StudioManagerContext> options)
             :base(options)
