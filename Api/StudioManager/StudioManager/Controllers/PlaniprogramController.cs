@@ -156,15 +156,10 @@ namespace StudioManager.Controllers
         }
 
 
-/// <summary>
+        /// <summary>
         /// Brisanje programa iz baze
         /// </summary>
-        /// <remarks>
-        /// <param name="sifra">Šifra programa kojeg želite izbrisati</param>  
-        /// <returns>Potvrđeno brisanje</returns>
-        /// <response code="200">Sve je u redu, program je obrisan s baze</response>
-        /// <response code="204">U bazi ne postoji program kojeg ste odabrali za brisanje</response>
-        /// <response code="503">Problem s bazom</response> 
+        /// <response code="200">Sve je u redu</response>
 
         [HttpDelete]
         [Route("{sifra:int}")]
