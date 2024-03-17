@@ -30,7 +30,7 @@ namespace StudioManager.Models
 /// Program kreiran od strane jednog trenera provodi se u jednoj ili više grupa, a može ga koristiti jedan ili više trenera
 /// </summary>
 
-        public string? Trener { get; set; }
+        public int? Trener { get; set; }
 
 // mislim da kad uvedem klasu trener trebam tip podatka trenera promjehit u poveznicu na klasu
 
