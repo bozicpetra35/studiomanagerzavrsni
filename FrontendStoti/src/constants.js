@@ -4,3 +4,7 @@ export const RoutesNames = {
     PROGRAMI_PREGELD: '/programi'
 
 };
+
+export const App = {
+    DEV: true
+};
