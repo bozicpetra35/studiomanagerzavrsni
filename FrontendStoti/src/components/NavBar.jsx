@@ -21,7 +21,10 @@ const navigate = useNavigate();
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <NavDropdown title="Izbornik" id="basic-nav-dropdown">
-              <NavDropdown.Item>
+
+              <NavDropdown.Item 
+              onClick={()=>navigate(RoutesNames.PROGRAMI_PREGELD)}
+              >
                 Programi
              </NavDropdown.Item>
 
