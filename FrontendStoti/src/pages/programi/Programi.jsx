@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
 import ProgramService from "../../services/ProgramService";
+import { NumericFormat } from "react-number-format";
+import { LuPaintbrush } from "react-icons/lu";
+import { MdOutlineDeleteSweep } from "react-icons/md";
+import { AiOutlineAppstoreAdd } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import { RoutesNames } from "../../constants";
 
 
 export default function Programi(){
@@ -17,6 +23,7 @@ export default function Programi(){
        });
     }
 
+
 //use effect će se pozvati dvaput u developtmentu, ali jednom u produkciji
 
     useEffect(()=>{
@@ -26,6 +33,14 @@ export default function Programi(){
     return(
 
         <Container>
+
+            <Link to={RoutesNames.PROGRAMI_NOVI} className="btn btn-success 
+            gumb">
+            <AiOutlineAppstoreAdd 
+            size={25}
+            /> Dodaj
+            </Link>
+
             <Table stripped bordered hover responsive>
                 <thead>
 
@@ -37,15 +52,47 @@ export default function Programi(){
                     </tr>
 
                 </thead>
-
+//provjeri 43
                 <tbody>
-                   {programi && programi.map((index,program)=>(
+                   {programi && programi.map((planiprogram,index)=>(
                     <tr> key={index}
+
                     <td>{planiprogram.naziv}</td>
-                    <td>{planiprogram.tjednasatnica}</td>
-                    <td>{planiprogram.cijena}</td>
+
+                    <td className="desno">{planiprogram.tjednasatnica}</td>
+                   
+                    <td className="desno">
+                        {planiprogram.cijena==null ? 'Cijena nije definirana'
+                            :
+                            <NumericFormat
+                            value={planiprogram.cijena}
+                            displayType={'text'}
+                            thousandSeparator='.'
+                            decimalSeparator=','
+                            prefix="{€}"
+                            decimalScale={2}
+                            fixedDecimalScale
+                            />
+                         }
+                    </td>
                     <td>{planiprogram.trener}</td>
-                    <td>{akcija}</td>
+
+                    <td className="sredina">
+                    
+
+                    <Link to={RoutesNames.PROGRAMI_PROMJENI}>
+                    <LuPaintbrush
+                    size={25}
+                     /> Dodaj
+                     </Link>
+                                &nbsp;&nbsp;&nbsp
+                     <Link>
+                    <MdOutlineDeleteSweep
+                    size={25}
+                     /> Obriši
+                     </Link>
+
+                    </td>
 
                     </tr>
                    ))} 
@@ -53,7 +100,6 @@ export default function Programi(){
 
             </Table>
 
-            Ovdje će se nalaziti pregled programa
         </Container>
 
     );

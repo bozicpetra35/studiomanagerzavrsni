@@ -2,7 +2,7 @@ import { App } from "../constants"
 import { httpService } from "./httpService";
 
 async function getProgrami(){
-    return await httpService.get('/PlaniProgrami')
+    return await httpService.get('/Program')
     .then((res)=>{
         if(App.DEV) console.table(res.data);
         
@@ -11,6 +11,7 @@ async function getProgrami(){
         console.log(e);
     });
 }
+
 
 export default{
     getProgrami
