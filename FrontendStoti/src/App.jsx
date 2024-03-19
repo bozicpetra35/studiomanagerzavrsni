@@ -10,7 +10,7 @@ import ProgramiDodaj from "./pages/programi/ProgramiDodaj"
 
 function App() {
   return (
-    <>npm 
+    <>
    
     <NavBar/>
 
@@ -24,4 +24,5 @@ function App() {
     </>
   )
 }
-export default App;
+
+export default App

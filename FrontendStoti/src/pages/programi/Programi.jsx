@@ -38,7 +38,7 @@ export default function Programi(){
             gumb">
             <AiOutlineAppstoreAdd 
             size={25}
-            /> Dodaj
+            /> Dodaj novi program
             </Link>
 
             <Table stripped bordered hover responsive>
@@ -52,7 +52,7 @@ export default function Programi(){
                     </tr>
 
                 </thead>
-//provjeri 43
+
                 <tbody>
                    {programi && programi.map((planiprogram,index)=>(
                     <tr> key={index}
@@ -83,9 +83,11 @@ export default function Programi(){
                     <Link to={RoutesNames.PROGRAMI_PROMJENI}>
                     <LuPaintbrush
                     size={25}
-                     /> Dodaj
+                     /> Unesi promjene
                      </Link>
+
                                 &nbsp;&nbsp;&nbsp
+                                
                      <Link>
                     <MdOutlineDeleteSweep
                     size={25}
