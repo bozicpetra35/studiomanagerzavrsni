@@ -27,7 +27,8 @@ async function dodajProgram(program){
         return {ok: true, poruka: 'Dodali ste program'}
     })
     .catch((e)=>{
-        return {ok: false, poruka: e.response.data}
+        // console.log(e);
+        return {ok: false, poruka: e.response.data.errors.Naziv[0]}
     });
     return odgovor;
 }

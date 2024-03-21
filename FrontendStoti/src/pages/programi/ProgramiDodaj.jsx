@@ -6,6 +6,16 @@ import { RoutesNames } from "../../constants";
 export default function ProgramiDodaj(){
     const navigate = useNavigate;
 
+    async function dodajProgram(program){
+        const odgovor = await ProgramService.dodajProgram(program);
+        if (odgovor.ok){
+            navigate(RoutesNames.PROGRAMI_PREGELD);
+        }else{
+            console.log(odgovor);
+            alert(odgovor.poruka);
+        }
+    }
+
     function handleSubmit(e){
         e.preventDefault();
         const podaci = new FormData(e.target);
@@ -21,12 +31,7 @@ export default function ProgramiDodaj(){
 
         // console.log(JSON.stringify(program));
 
-        const odgovor = ProgramService.dodajProgram(program);
-        if (odgovor.ok){
-            navigate(RoutesNames.PROGRAMI_PREGELD);
-        }else{
-            alert(odgovor.poruka);
-        }
+        dodajProgram(program);
 
     }
 
