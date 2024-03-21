@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Table } from "react-bootstrap";
+import { Button, Container, Table } from "react-bootstrap";
 import ProgramService from "../../services/ProgramService";
 import { NumericFormat } from "react-number-format";
 import { LuPaintbrush } from "react-icons/lu";
@@ -30,11 +30,22 @@ export default function Programi(){
         dohvatiPrograme();
     },[]);
 
+    async function obrisiProgram(sifra){
+    const odgovor = await ProgramService.obrisiProgram(sifra);
+        if (odgovor.ok){
+        alert(odgovor.poruka.data.poruka);
+        dohvatiPrograme();
+        }
+ 
+    }
+
+
+
     return(
 
         <Container>
 
-            <Link to={RoutesNames.PROGRAMI_NOVI} className="btn btn-success 
+            <Link to={RoutesNames.PROGRAMI_NOVI} className="btn btn-secondary 
             gumb">
             <AiOutlineAppstoreAdd 
             size={25}
@@ -88,11 +99,14 @@ export default function Programi(){
 
                                 &nbsp;&nbsp;&nbsp
                                 
-                     <Link>
+                     <Button
+                    //  variant="danger"
+                     onClick={()=>obrisiProgram(program.sifra)}
+                     >
                     <MdOutlineDeleteSweep
                     size={25}
                      /> Obriši
-                     </Link>
+                     </Button>
 
                     </td>
 

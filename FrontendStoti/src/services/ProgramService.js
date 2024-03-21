@@ -12,7 +12,28 @@ async function getProgrami(){
     });
 }
 
+async function obrisiProgram(sifra){
+    return await httpService.delete('/Program' + sifra)
+    .then((res)=>{
+        return {ok: true, poruka: res};
+    }).catch((e)=>{
+        console.log(e);
+    });
+}
+
+async function dodajProgram(program){
+    const odgovor = await httpService.post('Program',program)
+    .then(()=>{
+        return {ok: true, poruka: 'Dodali ste program'}
+    })
+    .catch((e)=>{
+        return {ok: false, poruka: e.response.data}
+    });
+    return odgovor;
+}
 
 export default{
-    getProgrami
+    getProgrami,
+    obrisiProgram,
+    dodajProgram
 };
