@@ -78,7 +78,7 @@ export default function ProgramiDodaj(){
                 <Link 
                 
                 className="btn btn-secondary"
-                to={RoutesNames.PROGRAMI_PREGELD}>Odustani</Link>
+                to={RoutesNames.PROGRAMI_PREGELD}>Dodaj program</Link>
             </Col>
 
             <Col>
@@ -86,7 +86,7 @@ export default function ProgramiDodaj(){
                 variant="secondary"
                 type="submit"
             >
-                Dodaj smjer
+                Odustani
             </Button>
             </Col>
 

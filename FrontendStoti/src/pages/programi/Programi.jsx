@@ -3,6 +3,7 @@ import { Button, Container, Table } from "react-bootstrap";
 import ProgramService from "../../services/ProgramService";
 import { NumericFormat } from "react-number-format";
 import { LuPaintbrush } from "react-icons/lu";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { MdOutlineDeleteSweep } from "react-icons/md";
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -82,21 +83,19 @@ export default function Programi(){
                             displayType={'text'}
                             thousandSeparator='.'
                             decimalSeparator=','
-                            prefix="{€}"
+                            prefix="€"
                             decimalScale={2}
                             fixedDecimalScale
                             />
                          }
                     </td>
-                    <td>{planiprogram.trener}</td>
+                    <td className="sredina">{planiprogram.trener}</td>
 
                     <td className="sredina">
-                    
-
                     <Link to={RoutesNames.PROGRAMI_PROMJENI}>
-                    <LuPaintbrush
+                    <FaEdit
                     size={25}
-                     /> Unesi promjene
+                     />
                      </Link>
 
                                 &nbsp;&nbsp;&nbsp;
