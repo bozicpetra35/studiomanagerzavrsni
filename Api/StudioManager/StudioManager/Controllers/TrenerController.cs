@@ -56,7 +56,34 @@ namespace StudioManager.Controllers
             }
         }
 
-/// <summary>
+
+        [HttpGet]
+        [Route("{sifra:int}")]
+        public IActionResult GetBySifra(int sifra)
+        {
+            // kontrola ukoliko upit nije valjan
+            if (!ModelState.IsValid || sifra <= 0)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var p = _context.Treneri.Find(sifra);
+                if (p == null)
+                {
+                    return new EmptyResult();
+                }
+                return new JsonResult(p);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                    ex.Message);
+            }
+        }
+
+
+        /// <summary>
         /// Dodajemo novog trenera s generiranom šifrom
         /// </summary>
         /// <param name="trener">Trener za unos  u json formatu</param>

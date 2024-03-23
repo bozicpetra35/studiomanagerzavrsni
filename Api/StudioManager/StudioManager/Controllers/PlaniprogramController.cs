@@ -64,7 +64,33 @@ namespace StudioManager.Controllers
         }
 
 
-/// <summary>
+        [HttpGet]
+        [Route("{sifra:int}")]
+        public IActionResult GetBySifra(int sifra)
+        {
+            // kontrola ukoliko upit nije valjan
+            if (!ModelState.IsValid || sifra <= 0)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var smjer = _context.Planiprogrami.Find(sifra);
+                if (smjer == null)
+                {
+                    return new EmptyResult();
+                }
+                return new JsonResult(smjer);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                    ex.Message);
+            }
+        }
+
+
+        /// <summary>
         /// Dodajemo novi program (plan i program u bazi)
         /// </summary>
         /// <param name="planiprogram">Smjer za unos  u json formatu</param>
