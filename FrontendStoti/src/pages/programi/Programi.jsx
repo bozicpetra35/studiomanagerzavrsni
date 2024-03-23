@@ -3,6 +3,7 @@ import { Button, Container, Table } from "react-bootstrap";
 import ProgramService from "../../services/ProgramService";
 import { NumericFormat } from "react-number-format";
 import { LuPaintbrush } from "react-icons/lu";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { MdOutlineDeleteSweep } from "react-icons/md";
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -11,11 +12,12 @@ import { RoutesNames } from "../../constants";
 
 export default function Programi(){
 
-    const[programi,setProgrami] = useState();
+    const[programi,setProgrami] = useState([]);
 
     async function dohvatiPrograme(){
         await ProgramService.getProgrami()
        .then((res)=>{
+           console.log(res);
         setProgrami(res.data);
        })
        .catch((e)=>{
@@ -60,13 +62,14 @@ export default function Programi(){
                         <th>TjednaSatnica</th>
                         <th>Cijena</th>
                         <th>Trener</th>
+                        <th>Akcija</th>
                     </tr>
 
                 </thead>
 
                 <tbody>
                    {programi && programi.map((planiprogram,index)=>(
-                    <tr> key={index}
+                    <tr key={index}>
 
                     <td>{planiprogram.naziv}</td>
 
@@ -80,24 +83,22 @@ export default function Programi(){
                             displayType={'text'}
                             thousandSeparator='.'
                             decimalSeparator=','
-                            prefix="{€}"
+                            prefix="€"
                             decimalScale={2}
                             fixedDecimalScale
                             />
                          }
                     </td>
-                    <td>{planiprogram.trener}</td>
+                    <td className="sredina">{planiprogram.trener}</td>
 
                     <td className="sredina">
-                    
-
                     <Link to={RoutesNames.PROGRAMI_PROMJENI}>
-                    <LuPaintbrush
+                    <FaEdit
                     size={25}
-                     /> Unesi promjene
+                     />
                      </Link>
 
-                                &nbsp;&nbsp;&nbsp
+                                &nbsp;&nbsp;&nbsp;
                                 
                      <Button
                     //  variant="danger"
