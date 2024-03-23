@@ -6,13 +6,14 @@ import { LuPaintbrush } from "react-icons/lu";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { MdOutlineDeleteSweep } from "react-icons/md";
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RoutesNames } from "../../constants";
 
 
 export default function Programi(){
 
     const[programi,setProgrami] = useState([]);
+    const navigate = useNavigate();
 
     async function dohvatiPrograme(){
         await ProgramService.getProgrami()
@@ -89,19 +90,21 @@ export default function Programi(){
                             />
                          }
                     </td>
+
                     <td className="sredina">{planiprogram.trener}</td>
 
-                    <td className="sredina">
-                    <Link to={RoutesNames.PROGRAMI_PROMJENI}>
-                    <FaEdit
+                    <td className="sredina"> 
+                    <Button 
+                    variant="secondary"
+                    onClick={()=>{navigate(`/programi/${program.sifra}`)}}>
+                    <FaEdit 
                     size={25}
-                     />
-                     </Link>
+                    />
+                    </Button>
 
                                 &nbsp;&nbsp;&nbsp;
                                 
                      <Button
-                    //  variant="danger"
                      onClick={()=>obrisiProgram(program.sifra)}
                      >
                     <MdOutlineDeleteSweep
@@ -112,7 +115,9 @@ export default function Programi(){
                     </td>
 
                     </tr>
-                   ))} 
+            
+                   ))}
+
                 </tbody>   
 
             </Table>

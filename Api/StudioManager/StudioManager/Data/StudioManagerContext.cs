@@ -29,5 +29,7 @@ namespace StudioManager.Data
 
         public DbSet<Planiprogram> Planiprogrami { get; set; }
 
+        public DbSet<Trener> Treneri { get; set; }
+
     }
 }
