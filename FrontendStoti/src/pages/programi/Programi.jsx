@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import { Button, Container, Table } from "react-bootstrap";
 import ProgramService from "../../services/ProgramService";
 import { NumericFormat } from "react-number-format";
-import { LuPaintbrush } from "react-icons/lu";
-import { FaEdit, FaTrash } from "react-icons/fa";
-import { MdOutlineDeleteSweep } from "react-icons/md";
-import { AiOutlineAppstoreAdd } from "react-icons/ai";
+import { MdOutlineFolderDelete } from "react-icons/md";
+import { LuFolderEdit } from "react-icons/lu";
+import { PiFolderSimplePlus } from "react-icons/pi";
 import { Link, useNavigate } from "react-router-dom";
 import { RoutesNames } from "../../constants";
 
@@ -50,8 +49,8 @@ export default function Programi(){
 
             <Link to={RoutesNames.PROGRAMI_NOVI} className="btn btn-secondary 
             gumb">
-            <AiOutlineAppstoreAdd 
-            size={25}
+            <PiFolderSimplePlus
+            size={35}
             /> Dodaj novi program
             </Link>
 
@@ -93,26 +92,29 @@ export default function Programi(){
 
                     <td className="sredina">{planiprogram.trener}</td>
 
-                    <td className="sredina"> 
-                    <Button 
-                    variant="secondary"
-                    onClick={()=>{navigate(`/programi/${program.sifra}`)}}>
-                    <FaEdit 
-                    size={25}
-                    />
-                    </Button>
-
-                                &nbsp;&nbsp;&nbsp;
+                    <td className="sredina">
                                 
-                     <Button
-                     onClick={()=>obrisiProgram(program.sifra)}
-                     >
-                    <MdOutlineDeleteSweep
-                    size={25}
-                     /> Obriši
-                     </Button>
+                                <Button 
+                                variant="secondary"
+                                onClick={()=>{navigate(`/programi/${planiprogram.sifra}`)}}>
+                                    <LuFolderEdit 
+                                    size={20}
+                                    />
+        
+                                </Button>
 
-                    </td>
+                                    &nbsp;&nbsp;&nbsp;
+
+                                <Button
+                                    variant="secondary"
+                                    onClick={()=>obrisiProgram(planiprogram.sifra)}
+                                >
+                                    <MdOutlineFolderDelete
+                                    size={25}
+                                    />
+                                </Button>
+
+                            </td>
 
                     </tr>
             

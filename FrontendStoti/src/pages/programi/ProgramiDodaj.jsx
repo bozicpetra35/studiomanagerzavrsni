@@ -1,7 +1,7 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import ProgramService from '../../services/ProgramService';
 import { RoutesNames } from "../../constants";
+import ProgramService from '../../services/ProgramService';
 
 export default function ProgramiDodaj(){
     const navigate = useNavigate;
@@ -46,6 +46,7 @@ export default function ProgramiDodaj(){
             <Form.Control
                 type="text"
                 name="naziv"
+                placeholder='Naziv programa '
             />   
         </Form.Group>
 
@@ -54,6 +55,7 @@ export default function ProgramiDodaj(){
             <Form.Control
                 type="text"
                 name="tjednasatnica"
+                placeholder='Tjedna satnica'
             />   
         </Form.Group>
 
@@ -62,6 +64,7 @@ export default function ProgramiDodaj(){
             <Form.Control
                 type="text"
                 name="cijena"
+                placeholder='Cijena programa'
             />   
         </Form.Group>
 
@@ -70,6 +73,7 @@ export default function ProgramiDodaj(){
             <Form.Control
                 type="text"
                 name="trener"
+                placeholder='Voditelj programa'
             />   
         </Form.Group>
 

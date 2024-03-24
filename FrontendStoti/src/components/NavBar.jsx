@@ -32,7 +32,7 @@ const navigate = useNavigate();
                 Grupe
               </NavDropdown.Item>
 
-              <NavDropdown.Item href="#action/3.3">
+              <NavDropdown.Item onClick={()=>navigate(RoutesNames.TRENERI_PREGLED)}>
                 Treneri
               </NavDropdown.Item>
          
