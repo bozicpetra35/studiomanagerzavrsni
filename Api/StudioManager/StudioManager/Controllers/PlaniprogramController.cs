@@ -77,8 +77,8 @@ namespace StudioManager.Controllers
             }
             try
             {
-                var smjer = _context.Planiprogrami.Find(sifra);
-                if (smjer == null)
+                var planiprogram = _context.Planiprogrami.Find(sifra);
+                if (planiprogram == null)
                 {
                     return new EmptyResult();
                 }
