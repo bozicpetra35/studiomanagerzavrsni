@@ -1,7 +1,9 @@
 ﻿using Azure;
 using Microsoft.AspNetCore.Mvc;
 using StudioManager.Data;
+using StudioManager.Extensions;
 using StudioManager.Models;
+using StudioManager.Models.EdunovaAPP.Models;
 using System.Runtime.Intrinsics.X86;
 
 namespace StudioManager.Controllers
@@ -54,7 +56,7 @@ namespace StudioManager.Controllers
                 {
                     return new EmptyResult();
                 }
-                return new JsonResult(planiprogrami);
+                return new JsonResult(planiprogrami.MapPlaniprogramReadList());
             }
             catch (Exception ex)
             {
@@ -80,7 +82,7 @@ namespace StudioManager.Controllers
                 {
                     return new EmptyResult();
                 }
-                return new JsonResult(smjer);
+                return new JsonResult(planiprogram.MapPlaniprogramReadToDTO());
             }
             catch (Exception ex)
             {
@@ -103,17 +105,18 @@ namespace StudioManager.Controllers
 
         [HttpPost]
 
-        public IActionResult Post (Planiprogram planiprogram)
+        public IActionResult Post (PlaniprogramDTOInsertUpdate planiprogramDTO)
         {
-            if (!ModelState.IsValid || planiprogram == null)
+            if (!ModelState.IsValid || planiprogramDTO == null)
             {
                 return BadRequest();
             }
             try
             {
+                var planiprogram = planiprogramDTO.MapPlaniprogramInsertUpdateFromDTO();
                 _context.Planiprogrami.Add(planiprogram);
                 _context.SaveChanges();
-                return StatusCode(StatusCodes.Status201Created, planiprogram);
+                return StatusCode(StatusCodes.Status201Created, planiprogram.MapPlaniprogramReadToDTO());
             }
             catch (Exception ex)
             {
@@ -141,9 +144,9 @@ namespace StudioManager.Controllers
 
 
 
-        public IActionResult Put (int sifra, Planiprogram planiprogram)
+        public IActionResult Put (int sifra, PlaniprogramDTOInsertUpdate)
         {
-            if (sifra <= 0 || !ModelState.IsValid || planiprogram == null)
+            if (sifra <= 0 || !ModelState.IsValid || planiprogramDTO == null)
             {
                 return BadRequest();
             }
@@ -160,18 +163,19 @@ namespace StudioManager.Controllers
                     return StatusCode(StatusCodes.Status204NoContent, sifra);
                 }
 
-//ovo inace rade maperi, ali sada smo napravili rucno
 
-                planiprogramizBaze.Naziv = planiprogram.Naziv;
-                planiprogramizBaze.TjednaSatnica = planiprogram.TjednaSatnica;
-                planiprogramizBaze.Cijena = planiprogram.Cijena;
-                planiprogramizBaze.Trener = planiprogram.Trener;
-        
 
-                _context.Planiprogrami.Update(planiprogramizBaze);
+                //kaze da ovo nije dobro
+
+                var planiprogram = planiprogramDTO.MapPlaniprogramInsertUpdateFromDTO();
+                planiprogram.Sifra = sifra;
+
+                _context.Planiprogrami.Update(planiprogram);
                 _context.SaveChanges();
 
-                return StatusCode(StatusCodes.Status200OK, planiprogramizBaze);
+                //------------------------------------------------------
+
+                return StatusCode(StatusCodes.Status200OK, planiprogram.MapPlaniprogramReadToDTO);
             }
             catch (Exception ex)
             {
