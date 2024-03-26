@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudioManager.Models
 {
@@ -25,14 +26,17 @@ namespace StudioManager.Models
 
         public decimal? Cijena { get; set; }
 
-/// <summary>
-/// Voditelj programa
-/// Program kreiran od strane jednog trenera provodi se u jednoj ili više grupa, a može ga koristiti jedan ili više trenera
-/// </summary>
+        /// <summary>
+        /// Voditelj programa
+        /// Program kreiran od strane jednog trenera provodi se u jednoj ili više grupa, a može ga koristiti jedan ili više trenera
+        /// </summary>
 
-        public int? Trener { get; set; }
+        [ForeignKey("trener")]
+        //trener pod navodnicima označava da je on kolona u tablici plan i program
+        
+        public Trener Trener { get; set; }
 
-// mislim da kad uvedem klasu trener trebam tip podatka trenera promjehit u poveznicu na klasu
+
 
 
     }
