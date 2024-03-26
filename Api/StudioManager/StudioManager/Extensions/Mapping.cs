@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using StudioManager.Mappers;
 using StudioManager.Models;
+using StudioManager.Models.EdunovaAPP.Models;
+using System.Reflection.Metadata.Ecma335;
 
 namespace StudioManager.Extensions
 {
@@ -24,11 +26,23 @@ namespace StudioManager.Extensions
             return mapper.Map<PlaniprogramDTORead>(entitet);
         }
 
-        public static Planiprogram MapPlaniprogramInsertUpdateFromDTO(this PlaniprogramDTOInsertUpdate entitet)
+        public static PlaniprogramDTOInsertUpdate MapPlaniprogramInsertUpdateToDTO(this Planiprogram entitet)
         {
-            var mapper = PlaniprogramMapper.InicijalizirajInsertUpdateFromDTO();
-            return mapper.Map<Planiprogram>(entitet);
+            var mapper = PlaniprogramMapper.InicijalizirajInsertUpdateToDTO();
+            return mapper.Map<PlaniprogramDTOInsertUpdate>(entitet);
         }
+
+
+        public static Planiprogram MapPlaniprogramInsertUpdateFromDTO(
+            this PlaniprogramDTOInsertUpdate dto, Planiprogram entitet)
+        {
+            entitet.Naziv = dto.naziv;
+            entitet.TjednaSatnica = dto.tjednasatnica;
+            entitet.Cijena = dto.cijena;
+            entitet.Trener = dto.trener;
+            return entitet;
+        }
+
 
 
 

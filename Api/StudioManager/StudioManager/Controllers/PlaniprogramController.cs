@@ -82,7 +82,7 @@ namespace StudioManager.Controllers
                 {
                     return new EmptyResult();
                 }
-                return new JsonResult(planiprogram.MapPlaniprogramReadToDTO());
+                return new JsonResult(planiprogram.MapPlaniprogramInsertUpdateToDTO());
             }
             catch (Exception ex)
             {
@@ -113,7 +113,7 @@ namespace StudioManager.Controllers
             }
             try
             {
-                var planiprogram = planiprogramDTO.MapPlaniprogramInsertUpdateFromDTO();
+                var planiprogram = planiprogramDTO.MapPlaniprogramInsertUpdateFromDTO(new Planiprogram());
                 _context.Planiprogrami.Add(planiprogram);
                 _context.SaveChanges();
                 return StatusCode(StatusCodes.Status201Created, planiprogram.MapPlaniprogramReadToDTO());
@@ -144,7 +144,7 @@ namespace StudioManager.Controllers
 
 
 
-        public IActionResult Put (int sifra, PlaniprogramDTOInsertUpdate)
+        public IActionResult Put (int sifra, PlaniprogramDTOInsertUpdate planiprogramDTO)
         {
             if (sifra <= 0 || !ModelState.IsValid || planiprogramDTO == null)
             {
@@ -167,7 +167,7 @@ namespace StudioManager.Controllers
 
                 //kaze da ovo nije dobro
 
-                var planiprogram = planiprogramDTO.MapPlaniprogramInsertUpdateFromDTO();
+                var planiprogram = planiprogramDTO.MapPlaniprogramInsertUpdateFromDTO(planiprogramizBaze);
                 planiprogram.Sifra = sifra;
 
                 _context.Planiprogrami.Update(planiprogram);

@@ -38,15 +38,7 @@ namespace StudioManager.Mappers
                 );
         }
 
-        public static Mapper InicijalizirajInsertUpdateFromDTO()
-        {
-            return new Mapper(
-                new MapperConfiguration(c =>
-                {
-                    c.CreateMap<PlaniprogramDTOInsertUpdate, Planiprogram>();
-                })
-                );
-        }
+    
 
     }
 }
