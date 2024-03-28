@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using StudioManager.Mappers;
 using StudioManager.Models;
-using StudioManager.Models.EdunovaAPP.Models;
 using System.Reflection.Metadata.Ecma335;
 
 namespace StudioManager.Extensions
 {
-    public static class Mapping
+    public static class MappingPlaniprogram
     {
 
 

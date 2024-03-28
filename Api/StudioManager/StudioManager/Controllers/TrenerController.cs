@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudioManager.Data;
+using StudioManager.Extensions;
 using StudioManager.Models;
+using StudioManager.Models.EdunovaAPP.Models;
 
 namespace StudioManager.Controllers
 {
@@ -47,7 +49,7 @@ namespace StudioManager.Controllers
                 {
                     return new EmptyResult();
                 }
-                return new JsonResult(lista);
+                return new JsonResult(lista.MapTrenerReadList());
             }
             catch (Exception ex)
             {
@@ -73,7 +75,7 @@ namespace StudioManager.Controllers
                 {
                     return new EmptyResult();
                 }
-                return new JsonResult(p);
+                return new JsonResult(p.MapTrenerInsertUpdateToDTO());
             }
             catch (Exception ex)
             {
@@ -94,17 +96,18 @@ namespace StudioManager.Controllers
         /// <response code="503">Baza nije dostupna</response> 
 
         [HttpPost]
-        public IActionResult Post(Trener entitet)
+        public IActionResult Post(TrenerDTOInsertUpdate dto)
         {
-            if (!ModelState.IsValid || entitet == null)
+            if (!ModelState.IsValid || dto == null)
             {
                 return BadRequest();
             }
             try
             {
+                var entitet = dto.MapTrenerInsertUpdateFromDTO(new Trener());
                 _context.Treneri.Add(entitet);
                 _context.SaveChanges();
-                return StatusCode(StatusCodes.Status201Created, entitet);
+                return StatusCode(StatusCodes.Status201Created, entitet.MapTrenerReadToDTO);
             }
             catch (Exception ex)
             {
@@ -128,9 +131,9 @@ namespace StudioManager.Controllers
 
         [HttpPut]
         [Route("{sifra:int}")]
-        public IActionResult Put(int sifra, Trener entitet)
+        public IActionResult Put(int sifra, TrenerDTOInsertUpdate dto)
         {
-            if (sifra <= 0 || !ModelState.IsValid || entitet == null)
+            if (sifra <= 0 || !ModelState.IsValid || dto == null)
             {
                 return BadRequest();
             }
@@ -148,18 +151,13 @@ namespace StudioManager.Controllers
                 }
 
 
-                // inače ovo rade mapperi,sada ručno
+                var entitet = dto.MapTrenerInsertUpdateFromDTO(entitetIzBaze);
 
-                entitetIzBaze.Ime = entitet.Ime;
-                entitetIzBaze.Prezime = entitet.Prezime;
-                entitetIzBaze.Oib = entitet.Oib;
-                entitetIzBaze.Telefon = entitet.Telefon;
-                entitetIzBaze.Iban = entitet.Iban;
 
                 _context.Treneri.Update(entitetIzBaze);
                 _context.SaveChanges();
 
-                return StatusCode(StatusCodes.Status200OK, entitetIzBaze);
+                return StatusCode(StatusCodes.Status200OK, entitetIzBaze.MapTrenerInsertUpdateToDTO());
             }
             catch (Exception ex)
             {

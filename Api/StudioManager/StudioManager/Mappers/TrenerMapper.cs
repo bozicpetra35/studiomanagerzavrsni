@@ -3,14 +3,14 @@ using StudioManager.Models;
 
 namespace StudioManager.Mappers
 {
-    public class PlaniprogramMapper
+    public class TrenerMapper
     {
         public static Mapper InicijalizirajReadToDTO()
         {
             return new Mapper(
                 new MapperConfiguration(c =>
                 {
-                    c.CreateMap<Planiprogram, PlaniprogramDTORead>();
+                    c.CreateMap<Trener, TrenerDTORead>();
                 })
                 );
         }
@@ -22,7 +22,7 @@ namespace StudioManager.Mappers
             return new Mapper(
                 new MapperConfiguration(c =>
                 {
-                    c.CreateMap<PlaniprogramDTORead, Planiprogram>();
+                    c.CreateMap<TrenerDTORead, Trener>();
                 })
                 );
         }
@@ -32,7 +32,7 @@ namespace StudioManager.Mappers
             return new Mapper(
                 new MapperConfiguration(c =>
                 {
-                    c.CreateMap<Planiprogram, PlaniprogramDTOInsertUpdate>();
+                    c.CreateMap<Trener, TrenerDTOInsertUpdate>();
                 })
                 );
         }

@@ -1,6 +1,8 @@
 ﻿using StudioManager.Data;
 using StudioManager.Models;
 using Microsoft.AspNetCore.Mvc;
+using StudioManager.Extensions;
+using StudioManager.Models.EdunovaAPP.Models;
 
 namespace EdunovaAPP.Controllers
 {
@@ -35,7 +37,7 @@ namespace EdunovaAPP.Controllers
                 {
                     return new EmptyResult();
                 }
-                return new JsonResult(lista);
+                return new JsonResult(lista.MapVjezbacReadList());
             }
             catch (Exception ex)
             {
@@ -60,7 +62,7 @@ namespace EdunovaAPP.Controllers
                 {
                     return new EmptyResult();
                 }
-                return new JsonResult(p);
+                return new JsonResult(p.MapVjezbacInsertUpdateToDTO());
             }
             catch (Exception ex)
             {
@@ -71,17 +73,18 @@ namespace EdunovaAPP.Controllers
 
 
         [HttpPost]
-        public IActionResult Post(Vjezbac entitet)
+        public IActionResult Post(VjezbacDTOInsertUpdate dto)
         {
-            if (!ModelState.IsValid || entitet == null)
+            if (!ModelState.IsValid || dto == null)
             {
                 return BadRequest();
             }
             try
             {
+                var entitet = dto.MapVjezbacInsertUpdateFromDTO(new Vjezbac());
                 _context.Vjezbaci.Add(entitet);
                 _context.SaveChanges();
-                return StatusCode(StatusCodes.Status201Created, entitet);
+                return StatusCode(StatusCodes.Status201Created, entitet.MapVjezbacReadToDTO());
             }
             catch (Exception ex)
             {
@@ -93,9 +96,9 @@ namespace EdunovaAPP.Controllers
 
         [HttpPut]
         [Route("{sifra:int}")]
-        public IActionResult Put(int sifra, Vjezbac entitet)
+        public IActionResult Put(int sifra, VjezbacDTOInsertUpdate dto)
         {
-            if (sifra <= 0 || !ModelState.IsValid || entitet == null)
+            if (sifra <= 0 || !ModelState.IsValid || dto == null)
             {
                 return BadRequest();
             }
@@ -113,17 +116,13 @@ namespace EdunovaAPP.Controllers
                 }
 
 
-                // inače ovo rade mapperi
-                // za sada ručno
-                entitetIzBaze.Ime = entitet.Ime;
-                entitetIzBaze.Prezime = entitet.Prezime;
-                entitetIzBaze.Telefon = entitet.Telefon;
-                entitetIzBaze.BrojUpisnogLista = entitet.BrojUpisnogLista;
+                entitetIzBaze = dto.MapVjezbacInsertUpdateFromDTO(entitetIzBaze);
+
 
                 _context.Vjezbaci.Update(entitetIzBaze);
                 _context.SaveChanges();
 
-                return StatusCode(StatusCodes.Status200OK, entitetIzBaze);
+                return StatusCode(StatusCodes.Status200OK, entitetIzBaze.MapVjezbacInsertUpdateToDTO);
             }
             catch (Exception ex)
             {

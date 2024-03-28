@@ -3,7 +3,7 @@
     public class Vjezbac : Osoba
     {
 
-        public string? BrojUpisnogLista { get; set; }
+        public int? BrojUpisnogLista { get; set; }
 
         public ICollection<Grupa>? Grupe { get; } = new List<Grupa>();
 
